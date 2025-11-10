@@ -1,0 +1,30 @@
+[
+  {
+    "id": "sushi",
+    "name": "Sushi",
+    "icon": "🍱",
+    "description": "Frisch zubereitet von unseren Sushi-Meistern",
+    "order": 1
+  },
+  {
+    "id": "ramen",
+    "name": "Ramen",
+    "icon": "🍜",
+    "description": "Hausgemachte Nudeln in reichhaltiger Brühe",
+    "order": 2
+  },
+  {
+    "id": "curry",
+    "name": "Curry",
+    "icon": "🍛",
+    "description": "Authentische Currys mit Jasminreis",
+    "order": 3
+  },
+  {
+    "id": "specials",
+    "name": "Chef Specials",
+    "icon": "⭐",
+    "description": "Besondere Kreationen unseres Küchenchefs",
+    "order": 4
+  }
+]

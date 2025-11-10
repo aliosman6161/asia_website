@@ -1,0 +1,56 @@
+{
+  "name": "AsianTaste",
+  "tagline": "Asiatische Küche in Deutschland",
+  "slogan": "Erlebe Den Geschmack",
+    "heroImages": [
+    "/images/gericht_1-Photoroom.png",
+    "/images/gericht_4-Photoroom.png",
+    "/images/gericht_5-Photoroom.png",
+    "/images/gericht_8-Photoroom.png"
+  ],
+  "description": {
+    "short": "Authentische asiatische Küche. Frische Zutaten. Unvergessliche Momente.",
+    "long": "Authentische asiatische Küche mit Leidenschaft zubereitet. Frische Zutaten, traditionelle Rezepte und unvergessliche Geschmackserlebnisse."
+  },
+  "stats": {
+    "yearsExperience": 25,
+    "freshIngredients": "100%",
+    "rating": 4.8,
+    "ratingLabel": "Kundenbewertung"
+  },
+  "contact": {
+    "phone": "+49 123 456789",
+    "email": "info@asiantaste.de",
+    "address": {
+      "street": "Musterstraße 123",
+      "city": "Berlin",
+      "zip": "12345",
+      "country": "Deutschland"
+    }
+  },
+  "openingHours": {
+    "monday": { "open": "11:30", "close": "22:00", "closed": false },
+    "tuesday": { "open": "11:30", "close": "22:00", "closed": false },
+    "wednesday": { "open": "11:30", "close": "22:00", "closed": false },
+    "thursday": { "open": "11:30", "close": "22:00", "closed": false },
+    "friday": { "open": "11:30", "close": "23:00", "closed": false },
+    "saturday": { "open": "12:00", "close": "23:00", "closed": false },
+    "sunday": { "open": "12:00", "close": "22:00", "closed": false }
+  },
+  "social": {
+    "instagram": "asiantaste_berlin",
+    "facebook": "asiantaste.berlin",
+    "google": "AsianTaste Berlin"
+  },
+  "navigation": [
+    { "label": "Home", "href": "#home" },
+    { "label": "Speisekarte", "href": "#menu" },
+    { "label": "Über Uns", "href": "#about" },
+    { "label": "Galerie", "href": "#gallery" },
+    { "label": "Kontakt", "href": "#contact" }
+  ],
+  "cta": {
+    "primary": "Speisekarte Entdecken",
+    "secondary": "Jetzt Anrufen"
+  }
+}
