@@ -1,6 +1,7 @@
 import categoriesData from './categories.json';
 import menuData from './menu.json';
 import restaurantData from './restaurant.json';
+import aboutData from './about.json';
 
 // Validierung
 const validateDish = (dish) => {
@@ -52,7 +53,8 @@ export {
   dishesByCategory,
   featuredDishes,
   menuStats,
-  categoryIcons
+  categoryIcons,
+  aboutData
 };
 
 // Default Export
@@ -63,5 +65,6 @@ export default {
   dishesByCategory,
   featuredDishes,
   menuStats,
-  categoryIcons
+  categoryIcons,
+  aboutData
 };

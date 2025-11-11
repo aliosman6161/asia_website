@@ -5,6 +5,7 @@ import WelcomePage from './compoents/welcomePage';
 import FeaturedDishes from './compoents/featuredDishes';
 import ThemeToggleButton from './compoents/ThemeToggleButton';
 import MenuSection from './compoents/menuSection';
+import AboutSection from './compoents/aboutSection';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <WelcomePage />
         <FeaturedDishes />
         <MenuSection />
+        <AboutSection /> 
         <ThemeToggleButton />
       </div>
     </ThemeProvider>

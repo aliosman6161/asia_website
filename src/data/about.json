@@ -1,0 +1,34 @@
+{
+  "hero": {
+    "badge": "🏮 Unsere Reise",
+    "title": "25 Jahre",
+    "titleAccent": "Asiatische Tradition",
+    "description": "Von einem kleinen Restaurant zu Ihrem Lieblingsort für authentische asiatische Küche"
+  },
+  "timeline": [
+    {
+      "year": "1998",
+      "title": "Der Anfang",
+      "description": "Eröffnung mit 20 Plätzen"
+    },
+    {
+      "year": "2005",
+      "title": "Wachstum",
+      "description": "80 Plätze, neue Küche"
+    },
+    {
+      "year": "2015",
+      "title": "Auszeichnung",
+      "description": "Beste asiatische Küche"
+    },
+    {
+      "year": "Heute",
+      "title": "100k+ Gäste",
+      "description": "Täglich frische Küche"
+    }
+  ],
+  "quote": {
+    "text": "Kochen ist wie Liebe – es sollte mit Leidenschaft geschehen oder gar nicht.",
+    "author": "Harriet van Horne"
+  }
+}
