@@ -19,9 +19,9 @@
         "required": true
       },
       "phone": {
-        "label": "Telefon (optional)",
+        "label": "Telefon",
         "placeholder": "+49 123 456789",
-        "required": false
+        "required": true
       },
       "message": {
         "label": "Ihre Nachricht",

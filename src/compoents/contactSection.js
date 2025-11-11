@@ -53,6 +53,11 @@ function ContactSection() {
       newErrors.email = 'Ungültige E-Mail-Adresse';
     }
     
+    // ✅ NEU: Telefon Validierung
+    if (contactData.form.fields.phone.required && !formData.phone.trim()) {
+      newErrors.phone = 'Telefonnummer ist erforderlich';
+    }
+    
     if (contactData.form.fields.message.required && !formData.message.trim()) {
       newErrors.message = 'Nachricht ist erforderlich';
     }
@@ -793,6 +798,7 @@ socialName: {
             <div style={{...styles.formGroup, ...styles.formGroupFull}}>
               <label style={styles.label}>
                 {contactData.form.fields.phone.label}
+                {contactData.form.fields.phone.required && <span style={{color: colors.accent}}> *</span>}
               </label>
               <input
                 type="tel"
@@ -800,7 +806,7 @@ socialName: {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder={contactData.form.fields.phone.placeholder}
-                style={styles.input}
+                style={errors.phone ? {...styles.input, ...styles.inputError} : styles.input}
                 onFocus={(e) => {
                   e.target.style.borderColor = colors.accent;
                   e.target.style.boxShadow = `0 0 0 3px ${theme === 'dark' ? 'rgba(255,102,0,0.1)' : 'rgba(255,102,0,0.08)'}`;
@@ -810,6 +816,7 @@ socialName: {
                   e.target.style.boxShadow = 'none';
                 }}
               />
+              {errors.phone && <span style={styles.errorText}>{errors.phone}</span>}
             </div>
 
             {/* Message */}
