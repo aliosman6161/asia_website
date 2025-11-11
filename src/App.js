@@ -6,6 +6,7 @@ import FeaturedDishes from './compoents/featuredDishes';
 import ThemeToggleButton from './compoents/ThemeToggleButton';
 import MenuSection from './compoents/menuSection';
 import AboutSection from './compoents/aboutSection';
+import ContactSection from './compoents/contactSection';
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
         <WelcomePage />
         <FeaturedDishes />
         <MenuSection />
-        <AboutSection /> 
+        <AboutSection />
+        <ContactSection />
         <ThemeToggleButton />
       </div>
     </ThemeProvider>

@@ -413,7 +413,6 @@ function Navbar() {
     { label: 'Home', href: '#home' },
     { label: 'Speisekarte', href: '#menu' },
     { label: 'Über Uns', href: '#about' },
-    { label: 'Galerie', href: '#gallery' },
     { label: 'Kontakt', href: '#contact' },
   ];
 
