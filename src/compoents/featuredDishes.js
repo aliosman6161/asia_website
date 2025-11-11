@@ -564,7 +564,7 @@ function FeaturedDishes() {
                       setSelectedDish(dish);
                     }}
                   >
-                    Details →
+                    Details
                   </button>
                 </div>
               </div>
