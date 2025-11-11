@@ -26,6 +26,7 @@ function AboutSection() {
       transition: 'background 0.4s ease',
       display: 'flex',
       alignItems: 'center',
+      
     },
     
     container: {

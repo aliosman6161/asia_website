@@ -41,6 +41,7 @@ export const ThemeProvider = ({ children }) => {
       primary: '#0f0f0f',
       secondary: '#1a1a1a',
       tertiary: '#0a0a0a',
+      sectionAlt: '#141414',  // ✅ NEU: Alternativer Section Background
       
       // Text
       text: '#ffffff',
@@ -72,6 +73,7 @@ export const ThemeProvider = ({ children }) => {
       primary: '#fafaf8',
       secondary: '#ffffff',
       tertiary: '#f5f5f5',
+      sectionAlt: '#f5f5f5',  // ✅ NEU: Alternativer Section Background
       
       // Text
       text: '#1a1a1a',

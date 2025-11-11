@@ -91,6 +91,7 @@ function ContactSection() {
         fontFamily: "'Raleway', sans-serif",
         position: "relative",
         transition: 'background 0.4s ease',
+        backgroundColor: colors.sectionAlt,
     },
     
     container: {

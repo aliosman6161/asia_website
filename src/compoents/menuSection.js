@@ -93,17 +93,58 @@ function MenuSection() {
   };
 
   const styles = {
-    section: {
-      backgroundColor: colors.primary,
-      padding: isMobile ? "60px 20px" : isTablet ? "80px 40px" : "100px 60px",
-      minHeight: '100vh',
-      position: "relative",
-      transition: 'background 0.4s ease',
-      width: '100%',
-      overflowX: 'hidden',
-      boxSizing: 'border-box',
-      fontFamily: "'Raleway', sans-serif",
-    },
+// In MenuSection.jsx - nur section style ändern:
+
+section: {
+  backgroundColor: colors.sectionAlt,
+  padding: isMobile ? "60px 20px" : isTablet ? "80px 40px" : "100px 60px",
+  minHeight: '100vh',
+  position: "relative",
+  transition: 'background 0.4s ease',
+  // ✅ NEU: Grid-Pattern mit Gradient Fade
+  backgroundImage: theme === 'dark'
+    ? `
+      linear-gradient(to bottom, 
+        ${colors.primary} 0%, 
+        ${colors.sectionAlt} 150px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 50px,
+        ${colors.gridPatternLight} 50px,
+        ${colors.gridPatternLight} 51px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 50px,
+        ${colors.gridPatternLight} 50px,
+        ${colors.gridPatternLight} 51px
+      )
+    `
+    : `
+      linear-gradient(to bottom, 
+        ${colors.primary} 0%, 
+        ${colors.sectionAlt} 150px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 50px,
+        ${colors.gridPatternLight} 50px,
+        ${colors.gridPatternLight} 51px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 50px,
+        ${colors.gridPatternLight} 50px,
+        ${colors.gridPatternLight} 51px
+      )
+    `,
+  fontFamily: "'Raleway', sans-serif",
+},
     container: {
       maxWidth: "1400px",
       margin: "0 auto",
