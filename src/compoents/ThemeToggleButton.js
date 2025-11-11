@@ -25,11 +25,11 @@ function ThemeToggleButton() {
       alignItems: 'center',
       justifyContent: 'center',
       cursor: 'pointer',
-      transition: 'all 0.3s ease',  // ← Gekürzt: 0.4s → 0.3s
+      transition: 'all 0.3s ease',
       boxShadow: hover
         ? `0 10px 40px ${theme === 'dark' ? 'rgba(255,102,0,0.4)' : 'rgba(0,0,0,0.2)'}`
         : `0 5px 20px ${theme === 'dark' ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.1)'}`,
-      transform: hover ? 'scale(1.08)' : 'scale(1)',  // ← GEÄNDERT: Kein rotate mehr, nur scale
+      transform: hover ? 'scale(1.08)' : 'scale(1)',
       backdropFilter: 'blur(10px)',
       WebkitBackdropFilter: 'blur(10px)',
     },
@@ -38,37 +38,6 @@ function ThemeToggleButton() {
       alignItems: 'center',
       justifyContent: 'center',
       position: 'relative',
-      // ← ENTFERNT: animation pulse!
-    },
-    tooltip: {
-      position: 'absolute',
-      right: '75px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      background: theme === 'dark' ? '#1a1a1a' : '#ffffff',
-      color: colors.text,
-      padding: '8px 16px',
-      borderRadius: '8px',
-      fontSize: '0.85rem',
-      fontWeight: 600,
-      whiteSpace: 'nowrap',
-      border: `1px solid ${colors.border}`,
-      boxShadow: `0 5px 20px ${theme === 'dark' ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.1)'}`,
-      opacity: hover ? 1 : 0,
-      pointerEvents: 'none',
-      transition: 'all 0.3s ease',
-      transform: hover ? 'translateY(-50%) translateX(0)' : 'translateY(-50%) translateX(10px)',
-    },
-    tooltipArrow: {
-      position: 'absolute',
-      right: '-6px',
-      top: '50%',
-      transform: 'translateY(-50%)',
-      width: 0,
-      height: 0,
-      borderTop: '6px solid transparent',
-      borderBottom: '6px solid transparent',
-      borderLeft: `6px solid ${theme === 'dark' ? '#1a1a1a' : '#ffffff'}`,
     },
   };
 
@@ -82,9 +51,6 @@ function ThemeToggleButton() {
       .theme-toggle-btn {
         width: 50px !important;
         height: 50px !important;
-      }
-      .theme-tooltip {
-        display: none !important;
       }
     }
   `;
@@ -101,19 +67,14 @@ function ThemeToggleButton() {
 
   return (
     <div style={styles.container} className="theme-toggle-container">
-      <div style={styles.tooltip} className="theme-tooltip">
-        {theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-        <div style={styles.tooltipArrow}></div>
-      </div>
-      
       <button
         style={styles.button}
         className="theme-toggle-btn"
         onClick={toggleTheme}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        onTouchStart={() => setHover(true)}  // ← NEU: Touch Support
-        onTouchEnd={() => setHover(false)}    // ← NEU: Touch Support
+        onTouchStart={() => setHover(true)}
+        onTouchEnd={() => setHover(false)}
         aria-label="Toggle Theme"
       >
         <div style={styles.iconWrapper}>
@@ -122,14 +83,14 @@ function ThemeToggleButton() {
               size={24} 
               color={colors.accent}
               fill={hover ? colors.accent : 'none'}
-              style={{ transition: 'all 0.3s ease' }}  // ← Nur transition, keine animation
+              style={{ transition: 'all 0.3s ease' }}
             />
           ) : (
             <Sun 
               size={24} 
               color={colors.accent}
               fill={hover ? colors.accent : 'none'}
-              style={{ transition: 'all 0.3s ease' }}  // ← GEÄNDERT: Kein rotate mehr!
+              style={{ transition: 'all 0.3s ease' }}
             />
           )}
         </div>
