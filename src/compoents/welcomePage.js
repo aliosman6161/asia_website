@@ -42,17 +42,18 @@ function WelcomePage() {
   const isDesktop = windowWidth > 1024;
 
   const styles = {
-    // ✅ UMBENANNT: container → section (äußerer Container)
     section: {
+      backgroundColor: colors.primary,
+      padding: isMobile ? "60px 20px" : isTablet ? "80px 40px" : "100px 60px",
       minHeight: '100vh',
-      backgroundColor: colors.primary,  // ← background → backgroundColor
-      padding: isMobile ? "80px 20px 60px" : isTablet ? "100px 40px 80px" : "120px 60px 100px",  // ← Padding wie MenuSection
       position: 'relative',
       overflow: 'hidden',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
       transition: 'background 0.4s ease',
+      width: '100%',
+      boxSizing: 'border-box',
+      fontFamily: "'Raleway', sans-serif",
     },
     gridPattern: {
       position: 'absolute',
@@ -66,6 +67,7 @@ function WelcomePage() {
         ? `translate(${mousePosition.x}px, ${mousePosition.y}px)` 
         : 'translate(0, 0)',
       transition: 'transform 0.3s ease-out',
+      pointerEvents: 'none',
     },
     floatingElement: {
       position: 'absolute',
@@ -79,34 +81,33 @@ function WelcomePage() {
       right: isMobile ? '-20%' : '10%',
       pointerEvents: 'none',
     },
-    // ✅ UMBENANNT: content → container (innerer Container)
     container: {
+      maxWidth: '1400px',
+      margin: '0 auto',
+      width: '100%',
       position: 'relative',
       zIndex: 2,
-      textAlign: 'center',
-      padding: '0',  // ← Kein Padding mehr (jetzt in section)
-      maxWidth: '1400px',
-      width: '100%',
-      margin: '0 auto',  // ← Hinzugefügt (wie MenuSection)
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
+      gap: isMobile ? '15px' : isTablet ? '20px' : '25px',
+      textAlign: 'center',
     },
     superText: {
-      fontSize: isMobile ? '0.7rem' : isTablet ? '0.85rem' : '0.95rem',
+      // ✅ +0.3rem: 0.75→1.05, 0.9→1.2, 1→1.3
+      fontSize: isMobile ? '1.05rem' : isTablet ? '1.2rem' : '1.3rem',
       color: colors.accent,
       letterSpacing: isMobile ? '3px' : '5px',
       textTransform: 'uppercase',
       fontWeight: 700,
-      marginBottom: isMobile ? '15px' : '20px',
       opacity: 0.9,
     },
     heading: {
-      fontSize: isMobile ? '2.5rem' : isTablet ? '4rem' : 'clamp(4rem, 10vw, 8rem)',
+      // ✅ +0.3rem: 2.2→2.5, 3.5→3.8, 4-7→4.3-7.3
+      fontSize: isMobile ? '2.5rem' : isTablet ? '3.8rem' : 'clamp(4.3rem, 9vw, 7.3rem)',
       fontWeight: 900,
       color: colors.text,
       lineHeight: 0.95,
-      marginBottom: isMobile ? '10px' : '20px',
       textTransform: 'uppercase',
       letterSpacing: isMobile ? '-1px' : isTablet ? '-2px' : '-3px',
       position: 'relative',
@@ -125,7 +126,8 @@ function WelcomePage() {
       zIndex: -1,
     },
     subheading: {
-      fontSize: isMobile ? '2rem' : isTablet ? '3.5rem' : 'clamp(3rem, 6vw, 5rem)',
+      // ✅ +0.3rem: 1.8→2.1, 3→3.3, 2.8-4.5→3.1-4.8
+      fontSize: isMobile ? '2.1rem' : isTablet ? '3.3rem' : 'clamp(3.1rem, 5.5vw, 4.8rem)',
       fontWeight: 900,
       background: colors.accentGradient,
       WebkitBackgroundClip: 'text',
@@ -133,27 +135,26 @@ function WelcomePage() {
       backgroundClip: 'text',
       textTransform: 'uppercase',
       letterSpacing: isMobile ? '-1px' : '-2px',
-      marginBottom: isMobile ? '20px' : '30px',
     },
     description: {
-      fontSize: isMobile ? '0.95rem' : isTablet ? '1rem' : '1.1rem',
+      // ✅ +0.3rem: 0.95→1.25, 1.05→1.35, 1.15→1.45
+      fontSize: isMobile ? '1.25rem' : isTablet ? '1.35rem' : '1.45rem',
       color: colors.textSecondary,
-      maxWidth: isMobile ? '100%' : isTablet ? '500px' : '600px',
-      margin: isMobile ? '0 auto 35px' : '0 auto 50px',
-      lineHeight: 1.7,
-      padding: isMobile ? '0 10px' : '0',
+      maxWidth: isMobile ? '100%' : isTablet ? '450px' : '550px',
+      lineHeight: 1.6,
       transition: 'color 0.4s ease',
     },
     ctaButton: {
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      gap: isMobile ? '10px' : '15px',
+      gap: isMobile ? '10px' : '12px',
       background: colors.accentGradient,
       color: '#fff',
       border: 'none',
-      padding: isMobile ? '16px 35px' : isTablet ? '18px 45px' : '20px 50px',
-      fontSize: isMobile ? '0.9rem' : isTablet ? '1rem' : '1.1rem',
+      padding: isMobile ? '14px 30px' : isTablet ? '16px 40px' : '18px 45px',
+      // ✅ +0.3rem: 0.85→1.15, 0.95→1.25, 1→1.3
+      fontSize: isMobile ? '1.15rem' : isTablet ? '1.25rem' : '1.3rem',
       fontWeight: 700,
       letterSpacing: isMobile ? '1px' : '2px',
       textTransform: 'uppercase',
@@ -161,34 +162,43 @@ function WelcomePage() {
       position: 'relative',
       overflow: 'hidden',
       transition: 'all 0.4s ease',
-      marginBottom: isMobile ? '50px' : '70px',
       boxShadow: hover 
         ? '0 20px 60px rgba(255,102,0,0.6)' 
         : '0 15px 50px rgba(255,102,0,0.4)',
       transform: hover && !isMobile ? 'translateY(-3px)' : 'translateY(0)',
       width: isMobile ? 'calc(100% - 40px)' : 'auto',
       maxWidth: isMobile ? '320px' : 'none',
+      borderRadius: '30px',
     },
     arrow: {
-      fontSize: isMobile ? '1.2rem' : '1.5rem',
+      // ✅ +0.3rem: 1.1→1.4, 1.3→1.6
+      fontSize: isMobile ? '1.4rem' : '1.6rem',
       transition: 'transform 0.3s ease',
       transform: hover ? 'translateX(10px)' : 'translateX(0)',
     },
     imageContainer: {
       position: 'relative',
-      marginTop: isMobile ? '0' : isTablet ? '0' : '0',
-      marginBottom: isMobile ? '40px' : isTablet ? '50px' : '60px',
-      display: 'block',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
       width: '100%',
-      maxWidth: isMobile ? '100%' : isTablet ? '500px' : '700px',
+      maxWidth: isMobile ? '100%' : isTablet ? '450px' : '600px',
+      height: isMobile ? '25vh' : isTablet ? '30vh' : '35vh',
+      maxHeight: isMobile ? '300px' : isTablet ? '400px' : '500px',
+      overflow: 'visible',
+      padding: isMobile ? '15px' : isTablet ? '20px' : '30px',
     },
     heroImage: {
       maxWidth: '100%',
-      width: '100%',
+      maxHeight: '100%',
+      width: 'auto',
       height: 'auto',
       display: 'block',
+      objectFit: 'contain',
       filter: isMobile 
         ? 'drop-shadow(0 20px 40px rgba(255,102,0,0.3))' 
+        : isTablet
+        ? 'drop-shadow(0 25px 60px rgba(255,102,0,0.35))'
         : 'drop-shadow(0 30px 80px rgba(255,102,0,0.4))',
       transform: isMobile 
         ? `scale(${hover ? 1.03 : 1})`
@@ -200,24 +210,23 @@ function WelcomePage() {
           rotateY(${mousePosition.x * 0.3}deg)
           scale(${hover ? 1.05 : 1})
         `,
-      transition: 'transform 0.3s ease-out',
+      transition: 'all 0.3s ease-out',
     },
     socialProof: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
-      gap: isMobile ? '30px' : isTablet ? '50px' : '60px',
-      marginTop: isMobile ? '0' : '0',
+      gap: isMobile ? '25px' : isTablet ? '40px' : '50px',
       flexWrap: 'wrap',
-      padding: isMobile ? '0 10px' : '0',
     },
     proofItem: {
       textAlign: 'center',
       flex: isMobile ? '1 1 auto' : 'none',
-      minWidth: isMobile ? '80px' : 'auto',
+      minWidth: isMobile ? '70px' : 'auto',
     },
     proofNumber: {
-      fontSize: isMobile ? '1.8rem' : isTablet ? '2.2rem' : '2.5rem',
+      // ✅ +0.3rem: 1.5→1.8, 1.8→2.1, 2→2.3
+      fontSize: isMobile ? '1.8rem' : isTablet ? '2.1rem' : '2.3rem',
       fontWeight: 900,
       color: colors.text,
       marginBottom: '5px',
@@ -225,7 +234,8 @@ function WelcomePage() {
       transition: 'color 0.4s ease',
     },
     proofLabel: {
-      fontSize: isMobile ? '0.65rem' : '0.75rem',
+      // ✅ +0.3rem: 0.6→0.9, 0.7→1
+      fontSize: isMobile ? '0.9rem' : '1rem',
       color: colors.textTertiary,
       letterSpacing: isMobile ? '1px' : '2px',
       textTransform: 'uppercase',
@@ -263,12 +273,10 @@ function WelcomePage() {
   }, []);
 
   return (
-    // ✅ GEÄNDERT: div → section + neuer Style-Name
-    <section style={styles.section}>
+    <section style={styles.section} id="home">
       <div style={styles.gridPattern}></div>
       <div style={styles.floatingElement}></div>
       
-      {/* ✅ GEÄNDERT: content → container */}
       <div style={styles.container}>
         <div style={styles.superText}>{restaurantData.tagline}</div>
         
@@ -292,9 +300,9 @@ function WelcomePage() {
           onMouseLeave={() => !isMobile && setHover(false)}
           onTouchStart={() => setHover(true)}
           onTouchEnd={() => setHover(false)}
+          onClick={() => document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' })}
         >
           {restaurantData.cta.primary}
-          <span style={styles.arrow}>→</span>
         </button>
 
         <div 
@@ -306,7 +314,7 @@ function WelcomePage() {
             src={randomImage} 
             alt="Asiatische Spezialitäten" 
             style={styles.heroImage}
-            loading="lazy"
+            loading="eager"
           />
         </div>
 

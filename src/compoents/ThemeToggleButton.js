@@ -25,11 +25,11 @@ function ThemeToggleButton() {
       alignItems: 'center',
       justifyContent: 'center',
       cursor: 'pointer',
-      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+      transition: 'all 0.3s ease',  // ← Gekürzt: 0.4s → 0.3s
       boxShadow: hover
         ? `0 10px 40px ${theme === 'dark' ? 'rgba(255,102,0,0.4)' : 'rgba(0,0,0,0.2)'}`
         : `0 5px 20px ${theme === 'dark' ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.1)'}`,
-      transform: hover ? 'scale(1.1) rotate(10deg)' : 'scale(1) rotate(0deg)',
+      transform: hover ? 'scale(1.08)' : 'scale(1)',  // ← GEÄNDERT: Kein rotate mehr, nur scale
       backdropFilter: 'blur(10px)',
       WebkitBackdropFilter: 'blur(10px)',
     },
@@ -38,7 +38,7 @@ function ThemeToggleButton() {
       alignItems: 'center',
       justifyContent: 'center',
       position: 'relative',
-      animation: hover ? 'none' : 'pulse 2s ease-in-out infinite',
+      // ← ENTFERNT: animation pulse!
     },
     tooltip: {
       position: 'absolute',
@@ -73,24 +73,6 @@ function ThemeToggleButton() {
   };
 
   const animations = `
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.05);
-      }
-    }
-
-    @keyframes rotate {
-      from {
-        transform: rotate(0deg);
-      }
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
     /* Mobile Anpassung */
     @media (max-width: 768px) {
       .theme-toggle-container {
@@ -114,6 +96,7 @@ function ThemeToggleButton() {
       style.innerHTML = animations;
       document.head.appendChild(style);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -129,6 +112,8 @@ function ThemeToggleButton() {
         onClick={toggleTheme}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
+        onTouchStart={() => setHover(true)}  // ← NEU: Touch Support
+        onTouchEnd={() => setHover(false)}    // ← NEU: Touch Support
         aria-label="Toggle Theme"
       >
         <div style={styles.iconWrapper}>
@@ -137,17 +122,14 @@ function ThemeToggleButton() {
               size={24} 
               color={colors.accent}
               fill={hover ? colors.accent : 'none'}
-              style={{ transition: 'all 0.3s ease' }}
+              style={{ transition: 'all 0.3s ease' }}  // ← Nur transition, keine animation
             />
           ) : (
             <Sun 
               size={24} 
               color={colors.accent}
               fill={hover ? colors.accent : 'none'}
-              style={{ 
-                transition: 'all 0.3s ease',
-                animation: hover ? 'rotate 1s linear infinite' : 'none'
-              }}
+              style={{ transition: 'all 0.3s ease' }}  // ← GEÄNDERT: Kein rotate mehr!
             />
           )}
         </div>
