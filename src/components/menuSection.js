@@ -1,16 +1,68 @@
 import React, { useState, useEffect } from "react";
 import { Search, Flame, Leaf, Star, X } from "lucide-react";
 import { useTheme } from "../ThemeContext";
-import { dishes, categories, categoryIcons } from "../data";
+import { supabase } from "../supabaseClient";
 
 function MenuSection() {
   const { theme, colors } = useTheme();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [activeCategory, setActiveCategory] = useState('alle');
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeFilters, setActiveFilters] = useState([]);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [selectedDish, setSelectedDish] = useState(null);
+  
+  // ✅ NEU: State für DB-Daten
+  const [dishes, setDishes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // ✅ NEU: Daten aus Supabase laden
+  useEffect(() => {
+    const fetchMenuData = async () => {
+      try {
+        setLoading(true);
+        
+        // Kategorien laden
+        const { data: categoriesData, error: categoriesError } = await supabase
+          .from('menu_categories')
+          .select('*')
+          .eq('visible', true)
+          .order('sort_order', { ascending: true });
+
+        if (categoriesError) throw categoriesError;
+
+        // Gerichte laden
+        const { data: dishesData, error: dishesError } = await supabase
+          .from('menu_dishes')
+          .select('*')
+          .eq('visible', true)
+          .order('sort_order', { ascending: true });
+
+        if (dishesError) throw dishesError;
+
+        // ✅ Kategorien mit Count erweitern
+        const categoriesWithCount = categoriesData.map(category => ({
+          ...category,
+          count: dishesData.filter(dish => dish.category === category.id).length
+        }));
+
+        setCategories(categoriesWithCount);
+        setDishes(dishesData);
+        
+        console.log('✅ Menu Data geladen:', {
+          categories: categoriesData.length,
+          dishes: dishesData.length
+        });
+
+      } catch (error) {
+        console.error('❌ Fehler beim Laden der Menu-Daten:', error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMenuData();
+  }, []);
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -29,16 +81,15 @@ function MenuSection() {
     };
   }, [selectedDish]);
 
-  useEffect(() => {
-    console.log('📊 Menu Data loaded:', { 
-      dishes: dishes.length, 
-      categories: categories.length 
-    });
-  }, []);
-
   const isMobile = windowWidth <= 768;
   const isTablet = windowWidth > 768 && windowWidth <= 1024;
   const isDesktop = windowWidth > 1024;
+
+  // ✅ Category Icons Map (da nicht mehr aus data.js)
+  const categoryIcons = categories.reduce((acc, cat) => {
+    acc[cat.id] = cat.icon;
+    return acc;
+  }, {});
 
   const allCategories = [
     { 
@@ -49,20 +100,6 @@ function MenuSection() {
     },
     ...categories
   ];
-
-  const filters = [
-    { id: 'vegetarian', label: 'Vegetarisch', icon: Leaf },
-    { id: 'spicy', label: 'Scharf', icon: Flame },
-    { id: 'new', label: 'Neu', icon: Star },
-  ];
-
-  const toggleFilter = (filterId) => {
-    setActiveFilters(prev => 
-      prev.includes(filterId) 
-        ? prev.filter(f => f !== filterId)
-        : [...prev, filterId]
-    );
-  };
 
   const clearSearch = () => {
     setSearchTerm('');
@@ -80,71 +117,59 @@ function MenuSection() {
       );
     }
 
-    if (activeFilters.length > 0) {
-      filteredDishes = filteredDishes.filter(dish => {
-        if (activeFilters.includes('vegetarian') && !dish.vegetarian) return false;
-        if (activeFilters.includes('spicy') && !dish.spicy) return false;
-        if (activeFilters.includes('new') && !dish.new) return false;
-        return true;
-      });
-    }
-
     return filteredDishes;
   };
 
   const styles = {
-// In MenuSection.jsx - nur section style ändern:
-
-section: {
-  backgroundColor: colors.sectionAlt,
-  padding: isMobile ? "60px 20px" : isTablet ? "80px 40px" : "100px 60px",
-  minHeight: '100vh',
-  position: "relative",
-  transition: 'background 0.4s ease',
-  // ✅ NEU: Grid-Pattern mit Gradient Fade
-  backgroundImage: theme === 'dark'
-    ? `
-      linear-gradient(to bottom, 
-        ${colors.primary} 0%, 
-        ${colors.sectionAlt} 150px
-      ),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 50px,
-        ${colors.gridPatternLight} 50px,
-        ${colors.gridPatternLight} 51px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 50px,
-        ${colors.gridPatternLight} 50px,
-        ${colors.gridPatternLight} 51px
-      )
-    `
-    : `
-      linear-gradient(to bottom, 
-        ${colors.primary} 0%, 
-        ${colors.sectionAlt} 150px
-      ),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 50px,
-        ${colors.gridPatternLight} 50px,
-        ${colors.gridPatternLight} 51px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 50px,
-        ${colors.gridPatternLight} 50px,
-        ${colors.gridPatternLight} 51px
-      )
-    `,
-  fontFamily: "'Raleway', sans-serif",
-},
+    section: {
+      backgroundColor: colors.sectionAlt,
+      padding: isMobile ? "60px 20px" : isTablet ? "80px 40px" : "100px 60px",
+      minHeight: '100vh',
+      position: "relative",
+      transition: 'background 0.4s ease',
+      backgroundImage: theme === 'dark'
+        ? `
+          linear-gradient(to bottom, 
+            ${colors.primary} 0%, 
+            ${colors.sectionAlt} 150px
+          ),
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 50px,
+            ${colors.gridPatternLight} 50px,
+            ${colors.gridPatternLight} 51px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            ${colors.gridPatternLight} 50px,
+            ${colors.gridPatternLight} 51px
+          )
+        `
+        : `
+          linear-gradient(to bottom, 
+            ${colors.primary} 0%, 
+            ${colors.sectionAlt} 150px
+          ),
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 50px,
+            ${colors.gridPatternLight} 50px,
+            ${colors.gridPatternLight} 51px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 50px,
+            ${colors.gridPatternLight} 50px,
+            ${colors.gridPatternLight} 51px
+          )
+        `,
+      fontFamily: "'Raleway', sans-serif",
+    },
     container: {
       maxWidth: "1400px",
       margin: "0 auto",
@@ -192,6 +217,12 @@ section: {
       margin: "0 auto",
       lineHeight: 1.7,
       transition: 'color 0.4s ease',
+    },
+    loadingContainer: {
+      textAlign: 'center',
+      padding: '100px 20px',
+      color: colors.text,
+      fontSize: '1.2rem',
     },
     tabsContainer: {
       display: 'flex',
@@ -303,9 +334,6 @@ section: {
       transition: 'color 0.3s ease',
       outline: 'none',
     },
-    filtersWrapper: {
-      display: 'none',
-    },
     dishGrid: {
       display: 'grid',
       gridTemplateColumns: isMobile 
@@ -380,7 +408,6 @@ section: {
       marginBottom: isMobile ? '10px' : '15px',
       transition: 'color 0.4s ease',
     },
-    // ✅ NEU: Price Row mit Details Button
     priceRow: {
       display: 'flex',
       justifyContent: 'space-between',
@@ -441,7 +468,6 @@ section: {
       fontSize: '0.9rem',
       marginBottom: '20px',
     },
-    // Modal Styles
     modalOverlay: {
       position: "fixed",
       top: 0,
@@ -696,6 +722,19 @@ section: {
     }
   }, [theme, colors.accent, colors.secondary, animations]);
 
+  // ✅ Loading State
+  if (loading) {
+    return (
+      <section style={styles.section} id="menu">
+        <div style={styles.container}>
+          <div style={styles.loadingContainer}>
+            ⏳ Lade Speisekarte...
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section style={styles.section} id="menu">
       <div style={styles.container}>
@@ -758,7 +797,7 @@ section: {
         </div>
 
         {/* Results Count */}
-        {(searchTerm || activeFilters.length > 0) && (
+        {searchTerm && (
           <div style={styles.resultsCount}>
             {getFilteredDishes().length} {getFilteredDishes().length === 1 ? 'Gericht' : 'Gerichte'} gefunden
           </div>
@@ -785,7 +824,7 @@ section: {
                   </div>
                 )}
                 
-                <img src={dish.image} alt={dish.name} style={styles.dishImage} />
+                <img src={dish.image_url} alt={dish.name} style={styles.dishImage} />
                 <div style={styles.dishContent}>
                   <div style={styles.dishHeader}>
                     <div style={styles.dishInfo}>
@@ -794,7 +833,6 @@ section: {
                     </div>
                   </div>
                   
-                  {/* ✅ NEU: Price Row mit Details Button */}
                   <div style={styles.priceRow}>
                     <div style={styles.dishPrice}>€{dish.price.toFixed(2)}</div>
                     <button
@@ -821,7 +859,6 @@ section: {
                     </button>
                   </div>
                   
-                  {/* ✅ Tags jetzt UNTER der Price Row */}
                   <div style={styles.dishTags}>
                     {dish.vegetarian && (
                       <div style={styles.dishTag}>
