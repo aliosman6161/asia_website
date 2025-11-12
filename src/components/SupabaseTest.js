@@ -8,6 +8,7 @@ function SupabaseTest() {
 
   useEffect(() => {
     testConnection();
+    // eslint-disable-next-line
   }, []);
 
   const testConnection = async () => {
@@ -17,10 +18,11 @@ function SupabaseTest() {
     console.log('🔍 Teste Supabase Verbindung...');
     
     try {
+      // ✅ NEU: Menu Categories statt about_hero
       const { data, error } = await supabase
-        .from('about_hero')
+        .from('menu_categories')
         .select('*')
-        .single();
+        .order('sort_order', { ascending: true });
 
       if (error) throw error;
 
@@ -42,7 +44,7 @@ function SupabaseTest() {
       padding: '40px 20px',
       maxWidth: '800px',
       margin: '0 auto',
-      fontFamily: "'Arial', sans-serif",
+      fontFamily: 'Arial, sans-serif',
     },
     card: {
       border: '2px solid',
@@ -99,6 +101,13 @@ function SupabaseTest() {
       fontSize: '0.9rem',
       marginTop: '10px',
     },
+    categoryItem: {
+      background: 'white',
+      padding: '12px',
+      borderRadius: '8px',
+      marginBottom: '10px',
+      border: '1px solid #ddd',
+    },
   };
 
   return (
@@ -120,7 +129,7 @@ function SupabaseTest() {
           <div style={styles.info}>
             <strong>Mögliche Lösungen:</strong>
             <ul>
-              <li>Prüfe ob Tabelle "about_hero" in Supabase existiert</li>
+              <li>Prüfe ob Tabelle "menu_categories" in Supabase existiert</li>
               <li>Prüfe Environment Variables (.env.local)</li>
               <li>Prüfe Row Level Security (sollte disabled sein)</li>
             </ul>
@@ -132,17 +141,25 @@ function SupabaseTest() {
         <div style={{...styles.card, ...styles.success}}>
           <h2>✅ Verbindung erfolgreich!</h2>
           
-          <h3 style={styles.subtitle}>📊 Geladene Daten:</h3>
+          <h3 style={styles.subtitle}>📊 Menu Kategorien ({data.length}):</h3>
+          
+          {data.map((category, index) => (
+            <div key={category.id} style={styles.categoryItem}>
+              <div style={{ fontSize: '1.5rem', marginBottom: '5px' }}>
+                {category.icon} <strong>{category.name}</strong>
+              </div>
+              <div style={{ fontSize: '0.9rem', color: '#666' }}>
+                {category.description}
+              </div>
+              <div style={{ fontSize: '0.8rem', color: '#999', marginTop: '5px' }}>
+                ID: {category.id} | Order: {category.sort_order}
+              </div>
+            </div>
+          ))}
+
+          <h3 style={styles.subtitle}>🔍 Raw Data:</h3>
           <div style={styles.data}>
             {JSON.stringify(data, null, 2)}
-          </div>
-
-          <h3 style={styles.subtitle}>🎨 Formatiert:</h3>
-          <div style={styles.info}>
-            <p><strong>Badge:</strong> {data.badge}</p>
-            <p><strong>Title:</strong> {data.title}</p>
-            <p><strong>Title Accent:</strong> {data.title_accent}</p>
-            <p><strong>Description:</strong> {data.description}</p>
           </div>
         </div>
       )}

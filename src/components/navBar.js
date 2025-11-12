@@ -407,7 +407,7 @@ function Navbar() {
       style.innerHTML = styleSheet;
       document.head.appendChild(style);
     }
-  }, [mobileMenuOpen, theme]);
+  }, [mobileMenuOpen, theme, styleSheet]);
 
   const menuItems = [
     { label: 'Home', href: '#home' },
