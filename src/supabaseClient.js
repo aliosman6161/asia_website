@@ -1,39 +1,41 @@
 import { createClient } from '@supabase/supabase-js';
 
-// ✅ Funktioniert LOKAL (.env.local) UND auf NETLIFY (Netlify Extension)
+// ✅ Netlify Extension mit REACT_APP_ Prefix
 const supabaseUrl = 
-  process.env.REACT_APP_SUPABASE_URL ||     // Lokal mit REACT_APP_ prefix
-  process.env.SUPABASE_URL;                  // Netlify Extension (ohne prefix)
+  process.env.REACT_APP_SUPABASE_DATABASE_URL ||  // Netlify Extension nutzt DATABASE_URL
+  process.env.REACT_APP_SUPABASE_URL ||           // Lokal
+  process.env.SUPABASE_URL;                       // Fallback
 
 const supabaseAnonKey = 
-  process.env.REACT_APP_SUPABASE_ANON_KEY || // Lokal
-  process.env.SUPABASE_ANON_KEY ||           // Netlify Extension
-  process.env.SUPABASE_KEY;                  // Alternative Name
+  process.env.REACT_APP_SUPABASE_ANON_KEY ||      // Netlify Extension + Lokal
+  process.env.SUPABASE_ANON_KEY;                  // Fallback
 
-// ✅ Debug-Ausgabe (hilft beim Troubleshooting)
 console.log('🔍 Supabase Config Check:');
 console.log('URL:', supabaseUrl ? '✅ vorhanden' : '❌ fehlt');
-console.log('Key:', supabaseAnonKey ? '✅ vorhanden' : '❌ fehlt');
+console.log('Key:', supabaseAnonKey ? '✅ vorhanden (Länge: ' + (supabaseAnonKey?.length || 0) + ')' : '❌ fehlt');
 
-// ✅ Fallback für Entwicklung (OPTIONAL - nur wenn du es temporär direkt eintragen willst)
-/*
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn('⚠️ Env Vars fehlen - nutze Fallback (NUR FÜR ENTWICKLUNG!)');
-  const supabaseUrl = 'https://deinprojekt.supabase.co';
-  const supabaseAnonKey = 'eyJhbG...';
+// ✅ Debug: Zeige alle SUPABASE env vars
+console.log('Available SUPABASE vars:', 
+  Object.keys(process.env)
+    .filter(key => key.includes('SUPABASE'))
+    .map(key => `${key}: ${process.env[key] ? '✅' : '❌'}`)
+);
+
+let supabase;
+
+if (supabaseUrl && supabaseAnonKey) {
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+  console.log('✅ Supabase Client initialisiert');
+} else {
+  console.warn('⚠️ Supabase nicht konfiguriert - Website läuft trotzdem!');
+  supabase = {
+    from: () => ({
+      select: () => Promise.resolve({ 
+        data: null, 
+        error: { message: 'Supabase credentials fehlen' } 
+      }),
+    }),
+  };
 }
-*/
 
-// ✅ Error wenn Credentials fehlen
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error(
-    '❌ Supabase credentials fehlen!\n' +
-    'Erstelle .env.local mit:\n' +
-    'REACT_APP_SUPABASE_URL=https://xxx.supabase.co\n' +
-    'REACT_APP_SUPABASE_ANON_KEY=eyJ...'
-  );
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-console.log('✅ Supabase Client erfolgreich initialisiert');
+export { supabase };
