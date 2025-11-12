@@ -85,7 +85,6 @@ function ContactSection() {
 
     const styles = {
     section: {
-        backgroundColor: colors.primary,
         padding: isMobile ? "60px 20px" : isTablet ? "80px 40px" : "100px 60px",
         minHeight: '100vh',
         fontFamily: "'Raleway', sans-serif",

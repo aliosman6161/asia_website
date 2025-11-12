@@ -1,43 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+    <meta name="theme-color" content="#ff6600" />
+    
+    <!-- Basic Meta Tags -->
+    <meta name="description" content="AsianTaste - Authentische asiatische Küche. Genießen Sie frische Sushi, aromatische Ramen, würzige Currys und traditionelle Wok-Gerichte. Jetzt online bestellen!" />
+    <meta name="keywords" content="Asiatisches Restaurant, Sushi, Ramen, Thai Curry, Wok, Asia Food, Online Bestellen, Lieferservice" />
+    <meta name="author" content="AsianTaste Restaurant" />
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:url" content="https://testasiamain.netlify.app/" />
+    <meta property="og:title" content="AsianTaste - Authentische Asiatische Küche" />
+    <meta property="og:description" content="Entdecken Sie unsere Vielfalt an asiatischen Spezialitäten: Sushi, Ramen, Currys und mehr. Frisch zubereitet mit authentischen Rezepten." />
+    <meta property="og:image" content="%PUBLIC_URL%/images/gericht_1.png" />
+    <meta property="og:locale" content="de_DE" />
+    <meta property="og:site_name" content="AsianTaste Restaurant" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://testasiamain.netlify.app/" />
+    <meta name="twitter:title" content="AsianTaste - Authentische Asiatische Küche" />
+    <meta name="twitter:description" content="Frische Sushi, aromatische Ramen und traditionelle Wok-Gerichte" />
+    <meta name="twitter:image" content="%PUBLIC_URL%/images/gericht_1.png" />
+    
+    <!-- Additional Meta Tags -->
+    <meta name="format-detection" content="telephone=yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="AsianTaste" />
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    
+    <title>AsianTaste - Authentische Asiatische Küche | Sushi, Ramen & Mehr</title>
+    
+    <!-- JSON-LD Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Restaurant",
+      "name": "AsianTaste",
+      "image": "%PUBLIC_URL%/images/gericht_1.png",
+      "description": "Authentische asiatische Küche mit frischen Zutaten und traditionellen Rezepten",
+      "servesCuisine": ["Asiatisch", "Japanisch", "Thailändisch", "Vietnamesisch"],
+      "priceRange": "$$",
+      "url": "https://testasiamain.netlify.app",
+      "telephone": "+49-XXX-XXXXXXX",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Musterstraße 123",
+        "addressLocality": "Berlin",
+        "postalCode": "10115",
+        "addressCountry": "DE"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "11:00",
+          "closes": "22:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday", "Sunday"],
+          "opens": "12:00",
+          "closes": "23:00"
+        }
+      ],
+      "acceptsReservations": "True"
+    }
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>Sie müssen JavaScript aktivieren, um diese Website zu nutzen.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>
