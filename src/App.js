@@ -1,11 +1,12 @@
 import './App.css';
 import { ThemeProvider } from './ThemeContext';
-import Navbar from './compoents/navBar';
-import WelcomePage from './compoents/welcomePage';
-import ThemeToggleButton from './compoents/ThemeToggleButton';
-import MenuSection from './compoents/menuSection';
-import AboutSection from './compoents/aboutSection';
-import ContactSection from './compoents/contactSection';
+import Navbar from './components/navBar';
+import WelcomePage from './components/welcomePage';
+import ThemeToggleButton from './components/ThemeToggleButton';
+import MenuSection from './components/menuSection';
+import AboutSection from './components/aboutSection';
+import ContactSection from './components/contactSection';
+import SupabaseTest from './components/SupabaseTest';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <AboutSection />
         <ContactSection />
         <ThemeToggleButton />
+        <SupabaseTest />
       </div>
     </ThemeProvider>
   );
