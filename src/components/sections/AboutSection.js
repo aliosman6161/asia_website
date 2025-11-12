@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useTheme } from "../ThemeContext";
-import aboutData from "../data/about.json";
+import { useTheme } from '../../ThemeContext';
+import aboutData from "../../config/about.json";
 
 function AboutSection() {
   const { theme, colors } = useTheme();

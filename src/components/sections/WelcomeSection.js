@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useTheme } from "../ThemeContext";
-import restaurantData from "../data/restaurant.json";
+import { useTheme } from '../../ThemeContext';
+import restaurantData from "../../config/restaurant.json";
 
 function WelcomePage() {
   const { theme, colors } = useTheme();

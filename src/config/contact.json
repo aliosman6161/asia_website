@@ -78,12 +78,12 @@
         {
           "day": "Samstag",
           "time": "12:00 - 23:00",
-          "closed": false
+          "closed": true
         },
         {
           "day": "Sonntag",
           "time": "12:00 - 22:00",
-          "closed": false
+          "closed": true
         }
       ]
     },

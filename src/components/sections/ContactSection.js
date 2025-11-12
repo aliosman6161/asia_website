@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Instagram, Facebook, Youtube } from "lucide-react";
-import { useTheme } from "../ThemeContext";
-import contactData from "../data/contact.json";
+import { useTheme } from '../../ThemeContext';
+import contactData from "../../config/contact.json";
 
 function ContactSection() {
   const { theme, colors } = useTheme();

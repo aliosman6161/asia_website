@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; // ← NEU
-import { useTheme } from '../ThemeContext';
+import { useTheme } from '../../ThemeContext';
 
 function Footer() {
   const { colors } = useTheme();

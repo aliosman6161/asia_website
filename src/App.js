@@ -1,27 +1,28 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './ThemeContext';
-import Navbar from './components/navBar';
-import WelcomePage from './components/welcomePage';
-import ThemeToggleButton from './components/ThemeToggleButton';
-import MenuSection from './components/menuSection';
-import AboutSection from './components/aboutSection';
-import ContactSection from './components/contactSection';
-import Footer from './components/footer';
+import Navbar from './components/layout/Navbar';
+import Footer from './components/layout/Footer';
+import ThemeToggle from './components/layout/ThemeToggle';
+import WelcomeSection from './components/sections/WelcomeSection';
+import MenuSection from './components/sections/MenuSection';
+import AboutSection from './components/sections/AboutSection';
+import ContactSection from './components/sections/ContactSection';
 import Impressum from './pages/Impressum';
 import Datenschutz from './pages/Datenschutz';
 import './App.css';
 
+// Main Website Component
 function MainWebsite() {
   return (
     <>
       <Navbar />
-      <WelcomePage />
+      <WelcomeSection />
       <MenuSection />
       <AboutSection />
       <ContactSection />
       <Footer />
-      <ThemeToggleButton />
+      <ThemeToggle />
     </>
   );
 }
