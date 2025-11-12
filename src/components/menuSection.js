@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Search, Flame, Leaf, Star, X } from "lucide-react";
 import { useTheme } from "../ThemeContext";
-import { supabase } from "../supabaseClient";
+import { supabase } from '../lib/supabase';
 
 function MenuSection() {
   const { theme, colors } = useTheme();
