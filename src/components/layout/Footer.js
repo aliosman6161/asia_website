@@ -23,7 +23,6 @@ function Footer() {
       padding: isMobile ? '30px 20px' : '40px 60px',
       fontFamily: "'Raleway', sans-serif",
       transition: 'all 0.4s ease',
-      marginTop: '60px',
     },
     
     container: {
